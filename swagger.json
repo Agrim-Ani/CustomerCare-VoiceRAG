@@ -1,0 +1,27 @@
+{
+  "openapi": "3.0.1",
+  "info": { "title": "Alltius Voice RAG API", "version": "1.0.0" },
+  "paths": {
+    "/voice": {
+      "post": {
+        "summary": "TwiML entry (returns <Gather>)",
+        "responses": { "200": { "description": "OK (TwiML)" } }
+      }
+    },
+    "/gather": {
+      "post": {
+        "summary": "Speech transcription webhook",
+        "responses": { "200": { "description": "OK (TwiML)" } }
+      }
+    },
+    "/intents/order-status": {
+      "get": {
+        "summary": "Fake order status",
+        "parameters": [
+          { "name": "orderId", "in": "query", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "OK" }, "400": { "description": "Bad Request" } }
+      }
+    }
+  }
+}
