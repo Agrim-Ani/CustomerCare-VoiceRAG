@@ -74,15 +74,14 @@ export async function handleVoiceQuery(userText) {
   const idMatch = text.match(ORDER_ID_CANDIDATE);
   const candidate = sanitizeOrderId(idMatch?.[1]);
 
-  const mentionsOrder =
-    /\border\b|\bstatus\b|\btracking\b|\bshipment\b|\bshipped\b/i.test(text);
+  const mentionsOrder = /\border\b|\bstatus\b|\btracking\b|\bshipment\b|\bshipped\b/i.test(text);
 
   if (candidate || mentionsOrder) {
     const orderId = candidate || "ORD12345";
     try {
       const st = await getOrderStatus(orderId);
       return {
-        text: `Order ${st.orderId}: ${st.status}. Estimated delivery in ${st.etaDays} day(s).`
+        text: `Order ${orderId}: ${st.status}. Estimated delivery in ${st.etaDays} day(s).`
       };
     } catch (e) {
       log.error("Order status failure", { err: e.message, userText });
