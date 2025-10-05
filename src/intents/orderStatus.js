@@ -6,10 +6,14 @@ export async function getOrderStatus(orderId) {
   }
   const statuses = ["Processing", "Packed", "Shipped", "Out for delivery", "Delivered", "Delayed"];
   const idx = Math.abs(hash(orderId)) % statuses.length;
+  let eta = idx + 1;
+  if(statuses[idx]=="Delivered"){
+    eta = 0;
+  }
   const result = {
     orderId,
     status: statuses[idx],
-    etaDays: idx + 1,
+    etaDays: eta,
     lastUpdate: new Date().toISOString()
   };
   log.info("Order status lookup", result);
